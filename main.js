@@ -67,6 +67,13 @@ let guessSpans = document.querySelectorAll(".letters-guess span");
 // set wrong attempts
 let wrongAttempts = 0;
 
+// set right attempts
+let rightAttempts = 0;
+
+// count rightattempts
+let fil = Array.from(randomValueValue.toLowerCase()).filter((e)=> e !== " ");
+let set = new Set(fil);
+
 // select the draw element
 let theDraw = document.querySelector(".hangman-draw");
 
@@ -96,20 +103,32 @@ document.addEventListener("click", (e) => {
       theDraw.classList.add(`wrong-${wrongAttempts}`);
       document.getElementById("fail").play();
       if (wrongAttempts === 8) {
-        endGame();
+        endGame("n");
         lettersContainer.classList.add("finished");
       }
     } else {
       document.getElementById("success").play();
+      rightAttempts++;
+      if (rightAttempts === set.size) {
+        endGame("y");
+        lettersContainer.classList.add("finished");
+      }
     }
   }
 });
 
 // end game function
-function endGame() {
+function endGame(s) {
   let div = document.createElement("div");
-  let divText = document.createTextNode(`Game Over, The Word Is ${randomValueValue}`);
+  let divText;
+  if (s === "y") {
+    divText = document.createTextNode(`Congratulations, The Word Is ${randomValueValue}, You Won After ${wrongAttempts} Wrong Attempts`);
+    div.classList.add("green");
+  } else if (s === "n") {
+    divText = document.createTextNode(`Game Over, The Word Is ${randomValueValue}`);
+    div.classList.add("red");
+  }
   div.append(divText);
-  div.className = 'popup';
+  div.classList.add("popup");
   document.body.append(div);
 }

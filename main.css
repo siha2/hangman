@@ -233,7 +233,6 @@ hr {
 }
 .popup {
   position: fixed;
-  background-color: #009688;
   padding: 100px 20px;
   width: 80%;
   top: 10%;
@@ -242,4 +241,10 @@ hr {
   font-size: 40px;
   border: 1px solid #ccc;
   color: #fff;
+}
+.green {
+  background-color: #009688;
+}
+.red {
+  background-color: #a82a2a;
 }
